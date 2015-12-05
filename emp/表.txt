@@ -1,0 +1,10 @@
+create table emp1
+(id int unsigned primary key,
+name varchar(32) not null default '',
+email varchar(32) not null default ''
+)charset utf8;
+
+insert into emp1 values(1,'小明','123@qq.com');
+insert into emp1 values(2,'小佛','465435345@qq.com');
+insert into emp1 values(3,'小法','1234536@qq.com');
+insert into emp1 values(4,'小交','12564563@qq.com');

@@ -1,0 +1,17 @@
+<head>
+	<meta http-equiv="content-type" content="text/html;chatset=gb2312">
+</head>
+<h1></h1>
+<hr />
+<table>
+	<tr><td>id</td><td>name</td><td>email</td></tr>
+	<?php foreach($emps as $emp):?>
+	<tr>
+		<td><?php echo $emp['id'];?></td>
+		<td><?php echo $emp['name'];?></td>
+		<td><?php echo $emp['email'];?></td>
+		<td><a href="?c=emp&a=delemp&id=<?php echo $emp['id'];?>">删除用户</a></td>
+		<td><a href="#">修改用户</a></td>
+	</tr>
+	<?php endforeach;?>
+</table>
