@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<html xmlns:wb="http://open.weibo.com/wb">
+<meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<title>{dede:global.cfg_webname/}</title>
+<link href="{dede:global.cfg_templets_skin/}/style/layout.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="{dede:global.cfg_templets_skin/}/style/head4.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="{dede:global.cfg_templets_skin/}/style/web.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="{dede:global.cfg_templets_skin/}/style/flickerplate.css" rel="stylesheet">
+<link href="{dede:global.cfg_templets_skin/}/style/article_layout.css" rel="stylesheet">
+<style>
+.flicker-example { width: 1000px; height: 340px; margin-left: auto; margin-right: auto;}
+</style>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/flickerplate.min.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/jquery-finger-v0.1.0.min.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/modernizr-custom-v2.7.1.min.js"></script>
+<script language="javascript" type="text/javascript" src="{dede:global.cfg_cmsurl/}/include/dedeajax2.js"></script>
+<script>
+$(function(){
+	$('.flicker-example').flicker();
+});
+
+function postBadGood(ftype,fid)
+{
+	var taget_obj = document.getElementById(ftype+fid);
+	var saveid = GetCookie('badgoodid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==fid && hasid) continue;
+			else {
+				if(saveids[i]==fid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==10 && hasid) break;
+				if(j==9 && !hasid) break;
+			}
+		}
+		if(hasid) { alert('You have voted.thanks a lot!'); return false;}
+		else saveid += ','+fid;
+		SetCookie('badgoodid',saveid,1);
+	}
+	else
+	{
+		SetCookie('badgoodid',fid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("{dede:field name='phpurl'/}/feedback.php?aid="+fid+"&action="+ftype+"&fid="+fid);
+}
+function postDigg(ftype,aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	var saveid = GetCookie('diggid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==aid && hasid) continue;
+			else {
+				if(saveids[i]==aid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==20 && hasid) break;
+				if(j==19 && !hasid) break;
+			}
+		}
+		if(hasid) { alert("您已经顶过该帖，请不要重复顶帖 ！"); return; }
+		else saveid += ','+aid;
+		SetCookie('diggid',saveid,1);
+	}
+	else
+	{
+		SetCookie('diggid',aid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	var url = "{dede:global.cfg_phpurl/}/digg_ajax.php?action="+ftype+"&id="+aid;
+	myajax.SendGet2(url);
+}
+function getDigg(aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("{dede:global.cfg_phpurl/}/digg_ajax.php?id="+aid);
+	DedeXHTTP = null;
+}
+-->
+</script>
+
+</head>
+
+<body>
+{dede:include filename="head.htm"/}
+<div class="w960 bg center">
+	<br />
+	<div class="article_title">
+		<div class="title"><h1>{dede:field.title/}</h1></div>
+		<div class="date"><h1>{dede:field.pubdate function="MyDate('Y-m-d H:i',@me)"/}</h1></div>
+	</div>
+
+	<br />
+	<div class="article_content">{dede:field.body/}</div>
+
+	<br />
+	<div class="viewbox">
+	<div class="newdigg" id="newdigg">
+   		<div class="diggbox digg_good" onmousemove="this.style.backgroundPosition='left bottom';" onmouseout="this.style.backgroundPosition='left top';" onclick="javascript:postDigg('good',{dede:field.id/})">
+    			<div class="digg_act"></div>
+    			<div class="digg_num">({dede:field.goodpost/})</div>
+   		</div>
+   		<div class="diggbox digg_bad" onmousemove="this.style.backgroundPosition='right bottom';" onmouseout="this.style.backgroundPosition='right top';" onclick="javascript:postDigg('bad',{dede:field.id/})">
+    			<div class="digg_act"></div>
+    			<div class="digg_num">({dede:field.badpost/})</div>
+   		</div>
+  	</div>
+	<script language="javascript" type="text/javascript">getDigg({dede:field.id/});</script>
+	
+	<div class="article_share">
+		<!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style_24x24">
+			<a class="jiathis_button_qzone"></a>
+			<a class="jiathis_button_tsina"></a>
+			<a class="jiathis_button_weixin"></a>
+		</div>
+		<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js" charset="utf-8"></script>
+		<!-- JiaThis Button END -->		
+	</div>
+
+	</div>
+</div><br /><br /><br />
+	
+
+
+
+
+
+
+
+
+
+</div>
+<!--
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/jquery.js"></script>
+-->
+
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/head4.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/content.js"></script>
+
+
+
+
+</div>
+{dede:include filename="footer.htm"/}
+</body>
+</html>
+

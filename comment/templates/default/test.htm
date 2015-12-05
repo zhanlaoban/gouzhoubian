@@ -1,0 +1,11 @@
+<html>
+	<h1>dede_archives表的信息如下</h1>
+	<table width="300px">
+		<tr><td>id</td><td>title</td></tr>
+		
+		<?php foreach($info as $row):?>
+		<tr><td><?php echo $row['id'];?></td><td><?php echo $row['title'];?></td></tr>
+		<?php endforeach;?>
+	
+	</table>
+</html>

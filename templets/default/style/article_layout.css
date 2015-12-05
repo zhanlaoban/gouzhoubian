@@ -1,0 +1,67 @@
+.article_title{
+	width:auto;
+	height:20px;
+}
+.title{
+	float:left;
+}
+.date{
+	float:right;
+}
+
+.article_content{
+	clear:both;
+}
+
+.viewbox .newdigg{
+	width:406px;
+	height:51px;
+	margin:8px auto;
+	clear:both;
+	float:left;
+	overflow:hidden;
+}
+.viewbox .diggbox{
+	width:100px;
+	height:51px;
+	float:left;
+	overflow:hidden;
+	cursor:pointer;
+}
+.viewbox .diggbox .digg_act{
+	font-size:14px;
+	float:left;
+	line-height:31px;
+	text-indent:32px;
+	height:29px;
+	overflow:hidden;
+	font-weight:bold;
+}
+.viewbox .diggbox .digg_num{
+	float:left;
+	line-height:29px;
+	text-indent:5px;
+}
+.viewbox .newdigg .digg_good{
+	background:url(../images/newdigg-bg.png) left top no-repeat;
+}
+.viewbox .newdigg .digg_bad{
+	background:url(../images/newdigg-bg.png) right top no-repeat;
+}
+.viewbox .newdigg .digg_good .digg_act{
+	color:#87825E;	
+}
+.viewbox .newdigg .digg_good .digg_num{
+	color:#C63;
+}
+.viewbox .newdigg .digg_bad .digg_act{
+	color:#87825E;	
+}
+.viewbox .newdigg .digg_bad .digg_num{
+	color:#39C;
+}
+.article_share{
+	float:right;
+	margin-top:5px;
+	margin-right:5px;
+}

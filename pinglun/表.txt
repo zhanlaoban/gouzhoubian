@@ -1,0 +1,12 @@
+create table pinglun
+(id int unsigned primary key auto_increment,
+ userid mediumint(8) unsigned not null,
+ title varchar(64) not null default '',
+ content longtext not null default '',
+ pltime int unsigned not null default 0,
+ videoid mediumint(8) unsigned not null
+)engine=myisam charset utf8;
+
+insert into pinglun (userid,title,content,pltime,videoid) values(1,'hello100','北京青年很不错',UNIX_TIMESTAMP(),11);
+
+insert into pinglun (userid,title,content,pltime,videoid) values(2,'火星救援','火星救援很不错',UNIX_TIMESTAMP(),11);
